@@ -11,14 +11,14 @@
                     <input matInput #input type="text" placeholder="Status" [(ngModel)]="newTodoStatus">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput #input type="text" placeholder="body" [(ngModel)]="newTodoBody">
+                    <input matInput #input type="text" placeholder="Body" [(ngModel)]="newTodoBody">
                 </mat-form-field>
                 <mat-form-field>
-                    <input matInput #input type="text" placeholder="Catagory" [(ngModel)]="newTodoCategory">
+                    <input matInput #input type="text" placeholder="Category" [(ngModel)]="newTodoCategory">
                 </mat-form-field>
 
                 <button mat-raised-button color="primary" #input type="button"
-                        (click)="this.addNewTodo(newTodoOwner, newTodoStatus, newTodoBody, newTodoCategory)">Add User</button>
+                        (click)="this.addNewTodo(newTodoOwner, newTodoStatus, newTodoBody, newTodoCategory)">Add Todo</button>
             </mat-card-content>
         </mat-card>
         <button mat-raised-button (click)="onNoClick()" type="button">Exit</button>
