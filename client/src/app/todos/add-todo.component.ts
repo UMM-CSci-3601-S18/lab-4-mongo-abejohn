@@ -25,7 +25,7 @@ export class AddTodoComponent {
         this.dialogRef.close();
     }
 
-    addNewTodo(Owner: string, Status: boolean,Body : string, Category : string) : void{
+    addNewTodo(Owner: string, Status: boolean ,Body : string, Category : string) : void{
 
         //Here we clear all the fields, there's probably a better way
         //of doing this could be with forms or something else
