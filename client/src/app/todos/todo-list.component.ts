@@ -85,18 +85,18 @@ export class TodoListComponent implements OnInit {
     }
 
     /**
-     * Starts an asynchronous operation to update the users list
+     * Starts an asynchronous operation to update the todos list
      *
      */
-    refreshUsers(): Observable<Todo[]> {
-        //Get Users returns an Observable, basically a "promise" that
+    refreshTodos(): Observable<Todo[]> {
+        //Get Todos returns an Observable, basically a "promise" that
         //we will get the data from the server.
         //
         //Subscribe waits until the data is fully downloaded, then
         //performs an action on it (the first lambda)
 
-        let users : Observable<Todo[]> = this.todoListService.getTodos();
-        users.subscribe(
+        let todos : Observable<Todo[]> = this.todoListService.getTodos();
+        todos.subscribe(
             todos => {
                 this.todos = todos;
                 this.filterTodos(this.todoOwner, this.todoStatus, this.todoBody, this.todoCategory);
@@ -123,7 +123,7 @@ export class TodoListComponent implements OnInit {
 
 
     ngOnInit(): void {
-        this.refreshUsers();
+        this.refreshTodos();
         this.loadService();
     }
 }

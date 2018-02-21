@@ -13,13 +13,13 @@ export class TodoComponent implements OnInit {
     private id: string;
 
     constructor(private todoListService: TodoListService) {
-         this.todos = this.todoListService.getTodos();
+       //  this.todos = this.todoListService.getTodos();
     }
 
     private subscribeToServiceForId() {
         if (this.id) {
             this.todoListService.getTodoById(this.id).subscribe(
-                user => this.todo = todo,
+                todo => this.todo = todo,
                 err => {
                     console.log(err);
                 }

@@ -34,7 +34,7 @@ export class AddTodoComponent {
         this.newTodoBody = null;
         this.newTodoCategory = null;
 
-        this.todoListService.addNewTodo(owner, status, body, category).subscribe(
+        this.todoListService.addNewTodo(Owner, Status, Body, Category).subscribe(
             succeeded => {
                 this.todoAddSuccess = succeeded;
                 // Once we added a new Todo, refresh our todo list.
