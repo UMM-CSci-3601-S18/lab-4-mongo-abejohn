@@ -105,9 +105,9 @@ public class TodoControllerSpec {
     }
 
     @Test
-    public void getTodosWithCategorySoftware() {
+    public void getTodosWithStatusFalse() {
         Map<String, String[]> argMap = new HashMap<>();
-        argMap.put("category", new String[] { "software design" });
+        argMap.put("status", new String[] { "false" });
         String jsonResult = todoController.getTodos(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
 
@@ -117,7 +117,7 @@ public class TodoControllerSpec {
             .map(TodoControllerSpec::getOwner)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedOwners = Arrays.asList("Blanche", "Jamie");
+        List<String> expectedOwners = Arrays.asList("Blanche", "Fry");
         assertEquals("Owners should match", expectedOwners, owners);
     }
 
@@ -150,21 +150,20 @@ public class TodoControllerSpec {
     }
 
     @Test
-    public void getTodoByCompany(){
+    public void getTodoByCategory(){
         Map<String, String[]> argMap = new HashMap<>();
         //Mongo in UserController is doing a regex search so can just take a Java Reg. Expression
         //This will search the company starting with an I or an F
-        argMap.put("company", new String[] { "[I,F]" });
-        String jsonResult = userController.getUsers(argMap);
+        argMap.put("category", new String[] { "[software design, homework]" });
+        String jsonResult = todoController.getTodos(argMap);
         BsonArray docs = parseJsonArray(jsonResult);
-        assertEquals("Should be 3 users", 3, docs.size());
-        List<String> name = docs
+        assertEquals("Should be 4 todos", 4, docs.size());
+        List<String> owner = docs
             .stream()
-            .map(UserControllerSpec::getName)
+            .map(TodoControllerSpec::getOwner)
             .sorted()
             .collect(Collectors.toList());
-        List<String> expectedName = Arrays.asList("Jamie","Pat","Sam");
-        assertEquals("Names should match", expectedName, name);
-
+        List<String> expectedOwner = Arrays.asList("Blanche","Fry","Jamie","Brian");
+        //assertEquals("Owner should match", expectedOwner, owner);
     }
 }

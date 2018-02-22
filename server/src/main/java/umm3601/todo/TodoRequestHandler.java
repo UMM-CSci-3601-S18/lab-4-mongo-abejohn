@@ -68,7 +68,7 @@ public class TodoRequestHandler {
      * @param res the HTTP response
      * @return a boolean as whether the user was added successfully or not
      */
-    public boolean addNewTodo(Request req, Response res)
+    public String addNewTodo(Request req, Response res)
     {
 
         res.type("application/json");
@@ -92,20 +92,20 @@ public class TodoRequestHandler {
                 catch(NullPointerException e)
                 {
                     System.err.println("A value was malformed or omitted, new todo request failed.");
-                    return false;
+                    return null;
                 }
 
             }
             else
             {
                 System.err.println("Expected BasicDBObject, received " + o.getClass());
-                return false;
+                return null;
             }
         }
         catch(RuntimeException ree)
         {
             ree.printStackTrace();
-            return false;
+            return null;
         }
     }
 }

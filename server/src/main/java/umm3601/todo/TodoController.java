@@ -63,7 +63,7 @@ public class TodoController {
             Document contentRegQuery = new Document();
             contentRegQuery.append("$regex", targetContent);
             contentRegQuery.append("$options", "i");
-            filterDoc = filterDoc.append("company", contentRegQuery);
+            filterDoc = filterDoc.append("owner", contentRegQuery);
         }
 
         //filter by status
@@ -74,7 +74,7 @@ public class TodoController {
 
         //filter by body
         if (queryParams.containsKey("body")) {
-            String targetContent = (queryParams.get("owner")[0]);
+            String targetContent = (queryParams.get("body")[0]);
             Document contentRegQuery = new Document();
             contentRegQuery.append("$regex", targetContent);
             contentRegQuery.append("$options", "i");
@@ -83,7 +83,7 @@ public class TodoController {
 
         //filter by category
         if (queryParams.containsKey("category")) {
-            String targetContent = (queryParams.get("owner")[0]);
+            String targetContent = (queryParams.get("category")[0]);
             Document contentRegQuery = new Document();
             contentRegQuery.append("$regex", targetContent);
             contentRegQuery.append("$options", "i");
@@ -96,7 +96,7 @@ public class TodoController {
         return JSON.serialize(matchingTodos);
     }
 
-    public boolean addNewTodo(String owner, Boolean status, String body, String category) {
+    public String addNewTodo(String owner, Boolean status, String body, String category) {
 
         Document newTodo = new Document();
         newTodo.append("owner", owner);
@@ -106,11 +106,14 @@ public class TodoController {
 
         try {
             todoCollection.insertOne(newTodo);
+            ObjectId id = newTodo.getObjectId("_id");
+            System.err.println("Successfully added new todo [_id=" + id + ", owner=" + owner + ", status=" + status + " body=" + body + " category=" + category + ']');
+
+            return JSON.serialize(id);
         } catch (MongoException me) {
             me.printStackTrace();
-            return false;
+            return null;
         }
 
-        return true;
     }
 }
