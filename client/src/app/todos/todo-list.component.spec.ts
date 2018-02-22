@@ -22,7 +22,7 @@ describe("Todo list", () => {
         todoListServiceStub = {
             getTodos: () => Observable.of([
                 {
-                    _id : { "$oid" : "58af3a600343927e48e8720ff"},
+                    _id : "blanch_id1",
                     owner : "Blanche",
                     status : false,
                     body : "In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.",
@@ -30,19 +30,18 @@ describe("Todo list", () => {
 
                 },
 
-                {   _id : { "$oid" : "58af3a600343927e48e872100" },
+                {   _id : "fry_id",
                     owner : "Fry",
                     status : false,
-                    body : "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.", "category" : "video games" },{ "_id" : { "$oid" : "58af3a600343927e48e87211" }, "owner" : "Fry", "status" : true, "body" : "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
+                    body : "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.",
                     category : "homework"
                 },
                 {
-                    _id: {"$oid": "58af3a600343927e48e872122"},
-                    owner: "Blanche",
-                    status: true,
-                    body: "Incididunt enim ea sit qui esse magna eu. Nisi sunt exercitation est Lorem consectetur incididunt cupidatat laboris commodo veniam do ut sint.",
-                    category: "software design"
-
+                    _id : "blanche_id2",
+                    owner : "Blanche",
+                    status : true,
+                    body : "Incididunt enim ea sit qui esse magna eu. Nisi sunt exercitation est Lorem consectetur incididunt cupidatat laboris commodo veniam do ut sint.",
+                    category : "software design"
                 }
             ])
         };
@@ -81,50 +80,37 @@ describe("Todo list", () => {
         expect(todoList.todos.some((todo: Todo) => todo.owner === "Santa")).toBe(false);
     });
 
-    it("has two todos that have a fasle status", () => {
+    it("has two todos that have a false status", () => {
         expect(todoList.todos.filter((todo: Todo) => todo.status === false).length).toBe(2);
     });
-    /*
-    it("todo list filters by owenr", () => {
+
+
+    it("todo list filters by owner", () => {
         expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoOwner = "a";
+        todoList.todoOwner = "Blanche";
         let a : Observable<Todo[]> = todoList.refreshTodos();
         a.do(x => Observable.of(x))
             .subscribe(x =>
             {
                 expect(todoList.filteredTodos.length).toBe(2);
             });
-    });  */
+    });
 
-  /* it("user list filters by age", () => {
-        expect(userList.filteredUsers.length).toBe(3);
-        userList.userAge = 37;
-        let a : Observable<User[]> = userList.refreshUsers();
-        a.do(x => Observable.of(x))
-            .subscribe(x =>
-            {
-                expect(userList.filteredUsers.length).toBe(2);
-            });
-    });  */
 
-   /* it("todo list filters by owner and status", () => {
+    it("todo list filters by owner and status", () => {
         expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoStatus = 2;
-        todoList.todoOwner = "i";
+        todoList.todoStatus = "incomplete" ;
+        todoList.todoOwner = "Fry";
         let a : Observable<Todo[]> = todoList.refreshTodos();
         a.do(x => Observable.of(x))
             .subscribe(x =>
             {
                 expect(todoList.filteredTodos.length).toBe(1);
             });
-    });  */
+    });
 
 
 });
-
-
-
-
 
 describe("Misbehaving Todo List", () => {
     let todoList: TodoListComponent;

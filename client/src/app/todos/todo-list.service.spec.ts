@@ -1,5 +1,3 @@
-
-
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {TestBed} from '@angular/core/testing';
 import {HttpClient} from '@angular/common/http';
@@ -11,31 +9,30 @@ describe('Todo list service: ', () => {
     // A small collection of test todos
     const testTodos: Todo[] = [
         {
-            _id : { "$oid" : "58af3a600343927e48e8720ff"},
+            _id : "blanch_id1",
             owner : "Blanche",
             status : false,
             body : "In sunt ex non tempor cillum commodo amet incididunt anim qui commodo quis. Cillum non labore ex sint esse.",
             category : "software design"
 
-    },
+        },
 
-    {   _id : { "$oid" : "58af3a600343927e48e872100" },
-        owner : "Fry",
-        status : false,
-        body : "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.", "category" : "video games" },{ "_id" : { "$oid" : "58af3a600343927e48e87211" }, "owner" : "Fry", "status" : true, "body" : "Ullamco irure laborum magna dolor non. Anim occaecat adipisicing cillum eu magna in.",
-        category : "homework"
-    },
+        {   _id : "fry_id",
+            owner : "Fry",
+            status : false,
+            body : "Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.",
+            category : "homework"
+        },
         {
-            _id: {"$oid": "58af3a600343927e48e872122"},
-            owner: "Blanche",
-            status: true,
-            body: "Incididunt enim ea sit qui esse magna eu. Nisi sunt exercitation est Lorem consectetur incididunt cupidatat laboris commodo veniam do ut sint.",
-            category: "software design"
-
+            _id : "blanche_id2",
+            owner : "Blanche",
+            status : true,
+            body : "Incididunt enim ea sit qui esse magna eu. Nisi sunt exercitation est Lorem consectetur incididunt cupidatat laboris commodo veniam do ut sint.",
+            category : "software design"
         }
 ];
     const mTodos: Todo[] = testTodos.filter(todo =>
-        todo.category.toLowerCase().indexOf("m") !== -1
+        todo.category.toLowerCase().indexOf("homework") !== -1
     );
     let todoListService: TodoListService;
     // These are used to mock the HTTP requests so that we (a) don't have to
@@ -82,13 +79,13 @@ describe('Todo list service: ', () => {
         req.flush(testTodos);
     });
 
-    it('getTodos(todoCompany) adds appropriate param string to called URL', () => {
-        todoListService.getTodos("m").subscribe(
+    it('getTodos(todoCategory) adds appropriate param string to called URL', () => {
+        todoListService.getTodos("homework").subscribe(
             todos => expect(todos).toEqual(mTodos)
 
         );
 
-        const req = httpTestingController.expectOne(todoListService.baseUrl + '?company=m&');
+        const req = httpTestingController.expectOne(todoListService.baseUrl + '?category=homework&');
         expect(req.request.method).toEqual('GET');
         req.flush(mTodos);
     });
