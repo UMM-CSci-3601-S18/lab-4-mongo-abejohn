@@ -79,7 +79,7 @@ public class TodoRequestHandler {
                 try {
                     BasicDBObject dbO = (BasicDBObject) o;
 
-                    String owner = dbO.getString("name");
+                    String owner = dbO.getString("owner");
                     //For some reason age is a string right now, caused by angular.
                     //This is a problem and should not be this way but here ya go
                     Boolean status = dbO.getBoolean("status");
@@ -91,7 +91,7 @@ public class TodoRequestHandler {
                 }
                 catch(NullPointerException e)
                 {
-                    System.err.println("A value was malformed or omitted, new user request failed.");
+                    System.err.println("A value was malformed or omitted, new todo request failed.");
                     return false;
                 }
 

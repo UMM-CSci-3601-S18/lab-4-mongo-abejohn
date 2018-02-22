@@ -24,16 +24,6 @@ export class TodoListService {
         return this.http.get<Todo>(this.todoUrl + "/" + id);
     }
 
-    /*
-    //This method looks lovely and is more compact, but it does not clear previous searches appropriately.
-    //It might be worth updating it, but it is currently commented out since it is not used (to make that clear)
-    getTodosByCompany(todoCompany?: string): Observable<Todo> {
-        this.todoUrl = this.todoUrl + (!(todoCompany == null || TodoCompany == "") ? "?company=" + todoCompany : "");
-        console.log("The url is: " + this.todoUrl);
-        return this.http.request(this.todoUrl).map(res => res.json());
-    }
-    */
-
     filterByCategory(todoCategory?: string): void {
         if(!(todoCategory == null || todoCategory == "")){
             if (this.todoUrl.indexOf('category=') !== -1){

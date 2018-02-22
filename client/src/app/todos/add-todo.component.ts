@@ -25,7 +25,7 @@ export class AddTodoComponent {
         this.dialogRef.close();
     }
 
-    addNewTodo(Owner: string, Status: boolean ,Body : string, Category : string) : void{
+    addNewTodo(owner: string, status: boolean ,body : string, category : string) : void{
 
         //Here we clear all the fields, there's probably a better way
         //of doing this could be with forms or something else
@@ -34,7 +34,7 @@ export class AddTodoComponent {
         this.newTodoBody = null;
         this.newTodoCategory = null;
 
-        this.todoListService.addNewTodo(Owner, Status, Body, Category).subscribe(
+        this.todoListService.addNewTodo(owner, status, body, category).subscribe(
             succeeded => {
                 this.todoAddSuccess = succeeded;
                 // Once we added a new Todo, refresh our todo list.
