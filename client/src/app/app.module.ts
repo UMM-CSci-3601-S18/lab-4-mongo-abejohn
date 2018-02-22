@@ -39,10 +39,6 @@ import {AddTodoComponent} from "./todos/add-todo.component";
         TodoListComponent,
         TodoComponent,
         AddTodoComponent
-
-
-
-
     ],
     providers: [
         UserListService,
