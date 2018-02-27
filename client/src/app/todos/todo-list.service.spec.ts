@@ -35,7 +35,7 @@ describe('Todo list service: ', () => {
         }
 ];
     const mTodos: Todo[] = testTodos.filter(todo =>
-        todo.category.toLowerCase().indexOf('homework') !== -1
+        todo.owner.toLowerCase().indexOf('Blanche') !== -1
     );
     let todoListService: TodoListService;
     // These are used to mock the HTTP requests so that we (a) don't have to
@@ -82,13 +82,13 @@ describe('Todo list service: ', () => {
         req.flush(testTodos);
     });
 
-    it('getTodos(todoCategory) adds appropriate param string to called URL', () => {
-        todoListService.getTodos('homework').subscribe(
+    it('getTodos(todoOwner) adds appropriate param string to called URL', () => {
+        todoListService.getTodos('Blanche').subscribe(
             todos => expect(todos).toEqual(mTodos)
 
         );
 
-        const req = httpTestingController.expectOne(todoListService.baseUrl + '?category=homework&');
+        const req = httpTestingController.expectOne(todoListService.baseUrl + '?owner=Blanche&');
         expect(req.request.method).toEqual('GET');
         req.flush(mTodos);
     });

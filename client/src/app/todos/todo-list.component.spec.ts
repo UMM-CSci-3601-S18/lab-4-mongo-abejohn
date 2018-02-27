@@ -85,9 +85,9 @@ describe("Todo list", () => {
     });
 
 
-    it("todo list filters by owner", () => {
+    it("todo list filters by category", () => {
         expect(todoList.filteredTodos.length).toBe(3);
-        todoList.todoOwner = "Blanche";
+        todoList.todoCategory = "software";
         let a : Observable<Todo[]> = todoList.refreshTodos();
         a.do(x => Observable.of(x))
             .subscribe(x =>
@@ -97,10 +97,10 @@ describe("Todo list", () => {
     });
 
 
-    it("todo list filters by owner and status", () => {
+    it("todo list filters by category and status", () => {
         expect(todoList.filteredTodos.length).toBe(3);
         todoList.todoStatus = "incomplete" ;
-        todoList.todoOwner = "Fry";
+        todoList.todoCategory = "software";
         let a : Observable<Todo[]> = todoList.refreshTodos();
         a.do(x => Observable.of(x))
             .subscribe(x =>

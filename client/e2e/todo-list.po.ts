@@ -6,20 +6,6 @@ export class TodoPage {
         return browser.get('/todos');
     }
 
-    // http://www.assertselenium.com/protractor/highlight-elements-during-your-protractor-test-run/
-    highlightElement(byObject) {
-        function setStyle(element, style) {
-            const previous = element.getAttribute('style');
-            element.setAttribute('style', style);
-            setTimeout(() => {
-                element.setAttribute('style', previous);
-            }, 200);
-            return 'highlighted';
-        }
-
-        return browser.executeScript(setStyle, element(byObject).getWebElement(), 'color: red; background-color: yellow;');
-    }
-
     getTodoTitle() {
         const title = element(by.id('todo-list-title')).getText();
         this.highlightElement(by.id('todo-list-title'));
@@ -33,8 +19,16 @@ export class TodoPage {
         input.sendKeys(category);
     }
 
-    selectUpKey() {
-        browser.actions().sendKeys(Key.ARROW_UP).perform();
+    typeAStatus(status: string) {
+        const input = element(by.id('todoStatus'));
+        input.click();
+        input.sendKeys(status);
+    }
+
+    typeABody(body: string) {
+        const input = element(by.id('todoBody'));
+        input.click();
+        input.sendKeys(body);
     }
 
     backspace() {
@@ -49,17 +43,26 @@ export class TodoPage {
         selectButton.click();
     }
 
-    getTodoByStatus() {
-        const input = element(by.id('todoName'));
-        input.click();
-        input.sendKeys(Key.TAB);
-    }
 
     getUniqueTodo(_id: string) {
         const todo = element(by.id(_id)).getText();
         this.highlightElement(by.id(_id));
 
         return todo;
+    }
+
+    // http://www.assertselenium.com/protractor/highlight-elements-during-your-protractor-test-run/
+    highlightElement(byObject) {
+        function setStyle(element, style) {
+            const previous = element.getAttribute('style');
+            element.setAttribute('style', style);
+            setTimeout(() => {
+                element.setAttribute('style', previous);
+            }, 200);
+            return 'highlighted';
+        }
+
+        return browser.executeScript(setStyle, element(byObject).getWebElement(), 'color: red; background-color: yellow;');
     }
 
     getTodos() {
