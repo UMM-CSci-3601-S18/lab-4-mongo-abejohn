@@ -11,6 +11,12 @@ import {AddTodoComponent} from "./add-todo.component"
     styleUrls: ['./todo-list.component.css'],
 })
 
+/**
+export class SelectValueBindingExample {
+    selected = 'option2';
+}
+**/
+
 export class TodoListComponent implements OnInit {
     //These are public so that tests can reference them (.spec.ts)
     public todos: Todo[];
@@ -30,6 +36,18 @@ export class TodoListComponent implements OnInit {
     //with the server.
     constructor(public todoListService: TodoListService, public dialog: MatDialog) {
 
+    }
+
+    //select (complete or incomplete
+    categories = [
+        {value: 'videogames-0', viewValue: 'videogames'},
+        {value: 'groceries-1', viewValue: 'groceries'},
+        {value: 'homework-2', viewValue: 'homework'},
+        {value: 'software-design-3', viewValue: 'sofware-design'}
+    ]
+
+    getId(): String {
+        return this.highlightedID['$oid'];
     }
 
     isHighlighted(todo: Todo): boolean {

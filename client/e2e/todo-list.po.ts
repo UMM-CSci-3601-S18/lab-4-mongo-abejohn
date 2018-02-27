@@ -44,12 +44,25 @@ export class TodoPage {
     }
 
 
-    getUniqueTodo(_id: string) {
-        const todo = element(by.id(_id)).getText();
-        this.highlightElement(by.id(_id));
+    getUniqueTodo(todo_id: string) {
+        const todo = element(by.id(todo_id)).getText();
+        this.highlightElement(by.id(todo_id));
 
         return todo;
     }
+
+/**
+    getUniqueTodo(todo_id:string) {
+    let todo = null;
+    try {
+            todo = element(by.id(todo_id['$oid'])).getText();
+            this.highlightElement(by.id(todo_id));
+        } catch (e) {
+            console.log(e);
+            todo = null;
+        }
+    }
+**/
 
     // http://www.assertselenium.com/protractor/highlight-elements-during-your-protractor-test-run/
     highlightElement(byObject) {

@@ -26,7 +26,9 @@
                 <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit</button>
 
                 <mat-accordion *ngIf="users; else usersError" >
-                <mat-expansion-panel #elem class="users" [id]="user.email" [expanded]="this.isHighlighted(user)" *ngFor="let user of this.filterUsers(userName, userAge)">
+                <mat-expansion-panel #elem class="users" [id]="user.email"
+                                     [expanded]="this.isHighlighted(user)"
+                                     *ngFor="let user of this.filterUsers(userName, userAge)">
                     <mat-expansion-panel-header>
                         <mat-panel-title matTooltip="email: {{user.email}}" >{{user.name}}</mat-panel-title>
 
