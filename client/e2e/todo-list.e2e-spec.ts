@@ -49,20 +49,10 @@ describe('Todo list', () => {
         expect(page.getUniqueTodo('58af3a600343927e48e8722a')).toEqual('Barry');
     });
 
-    it('Should allow us to clear a search for owner and then still successfully search again', () => {
+    it('Should allow us to search by owner', () => {
         page.navigateTo();
         page.getOwner('barry');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(51);
-        });
-        page.clickClearOwnerSearch();
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(301);
-        });
-        page.getOwner('blanche');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(43);
-        });
+        expect(page.getUniqueTodo('58af3a600343927e48e8721c')).toEqual('Barry');
     });
 
 
@@ -81,7 +71,9 @@ describe('Todo list', () => {
         element(by.id('addNewTodo')).click();
         expect(element(by.css('add-todo')).isPresent()).toBeTruthy('There should be a modal window now');
     });
+});
 
+    /*
     it('Should actually add the todo with the information we put in the fields', () => {
         page.navigateTo();
         page.clickAddTodoButton();
@@ -95,31 +87,34 @@ describe('Todo list', () => {
         element(by.id('categoryField')).sendKeys('Home work, video game');
         element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
         element(by.id('confirmAddTodoButton')).click();
+    });
+});
+     */
         // This annoying delay is necessary, otherwise it's possible that we execute the `expect`
         // line before the add todo has been fully processed and the new todo is available
         // in the list.
-        setTimeout(() => {
-            expect(page.getUniqueTodo('58af3a600343927e48e8721bb')).toMatch('Fry.*'); // toEqual('Tracy Kim');
-        }, 10000);
-    });
+        /*        setTimeout(() => {
+                    expect(page.getUniqueTodo('58af3a600343927e48e8721bb')).toMatch('Fry.*'); // toEqual('Tracy Kim');
+                }, 10000);
 
-    it('Should allow us to put information into the fields of the add todo dialog', () => {
-        page.navigateTo();
-        page.clickAddTodoButton();
-        expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
-        element(by.id('ownerField')).sendKeys('Dana Jones');
-        expect(element(by.id('statusField')).isPresent()).toBeTruthy('There should be a status field');
-        // Need to use backspace because the default value is -1. If that changes, this will change too.
-        element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
-            element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
-                element(by.id('statusField')).sendKeys('true');
+
+            it('Should allow us to put information into the fields of the add todo dialog', () => {
+                page.navigateTo();
+                page.clickAddTodoButton();
+                expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
+                element(by.id('ownerField')).sendKeys('Dana Jones');
+                expect(element(by.id('statusField')).isPresent()).toBeTruthy('There should be a status field');
+                // Need to use backspace because the default value is -1. If that changes, this will change too.
+                element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
+                    element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
+                        element(by.id('statusField')).sendKeys('true');
+                    });
+
+                expect(element(by.id('categoryField')).isPresent()).toBeTruthy('There should be a category field');
+                element(by.id('categoryField')).sendKeys('Awesome Startup, LLC');
+                expect(element(by.id('_idField')).isPresent()).toBeTruthy('There should be an _id field');
+                element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
+                element(by.id('exitWithoutAddingButton')).click();
             });
-        });
-        expect(element(by.id('categoryField')).isPresent()).toBeTruthy('There should be a category field');
-        element(by.id('categoryField')).sendKeys('Awesome Startup, LLC');
-        expect(element(by.id('_idField')).isPresent()).toBeTruthy('There should be an _id field');
-        element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
-        element(by.id('exitWithoutAddingButton')).click();
-    });
+        */
 
-});
