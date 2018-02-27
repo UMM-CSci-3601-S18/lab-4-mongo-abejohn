@@ -30,13 +30,13 @@ describe('Todo list', () => {
         expect(page.getTodoTitle()).toEqual('Todos');
     });
 
-    it('should type something in filter owner box and check that it returned correct element', () => {
+    it('should type something in filter category box and check that it returned correct element', () => {
         page.navigateTo();
-        page.typeAnOwner('Bla');
-        expect(page.getUniqueTodo('58af3a600343927e48e8720f')).toEqual('Blanche');
+        page.typeACategory('homework');
+        expect(page.getUniqueTodo('58af3a600343927e48e87211')).toEqual('Fry');
         page.backspace();
-        page.typeAnOwner('Fr');
-        expect(page.getUniqueTodo('58af3a600343927e48e87210')).toEqual('Fry');
+        page.typeACategory('software');
+        expect(page.getUniqueTodo('58af3a600343927e48e87212')).toEqual('Blanche');
     });
 
    /*
@@ -56,9 +56,10 @@ describe('Todo list', () => {
     */
 
 
+   /**
     it('Should open the expansion panel and get the category', () => {
         page.navigateTo();
-        page.getCategory('homewo');
+        page.typeACategory('homewo');
         browser.actions().sendKeys(Key.ENTER).perform();
 
         expect(page.getUniqueTodo('58af3a600343927e48e87211' +
@@ -165,4 +166,5 @@ describe('Todo list', () => {
         element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
         element(by.id('exitWithoutAddingButton')).click();
     });
+    **/
 });

@@ -27,10 +27,10 @@ export class TodoPage {
         return title;
     }
 
-    typeAnOwner(owner: string) {
-        const input = element(by.id('todoOwner'));
+    typeACategory(category: string) {
+        const input = element(by.id('todoCategory'));
         input.click();
-        input.sendKeys(owner);
+        input.sendKeys(category);
     }
 
     selectUpKey() {
@@ -41,10 +41,10 @@ export class TodoPage {
         browser.actions().sendKeys(Key.BACK_SPACE).perform();
     }
 
-    getCategory(category: string) {
-        const input = element(by.id('todoCategory'));
+    getOwner(owner: string) {
+        const input = element(by.id('todoOwner'));
         input.click();
-        input.sendKeys(category);
+        input.sendKeys(owner);
         const selectButton = element(by.id('submit'));
         selectButton.click();
     }
@@ -66,8 +66,8 @@ export class TodoPage {
         return element.all(by.className('todos'));
     }
 
-    clickClearCompanySearch() {
-        const input = element(by.id('categoryClearSearch'));
+    clickClearOwnerSearch() {
+        const input = element(by.id('ownerClearSearch'));
         input.click();
     }
 

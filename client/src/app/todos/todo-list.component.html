@@ -33,11 +33,12 @@
                                          [expanded]="this.isHighlighted(todo)"
                                          *ngFor="let todo of this.filterTodos(todoStatus,todoBody,todoCategory)">
                         <mat-expansion-panel-header>
-                            <mat-panel-title  matTooltip="status: {{todo.status}}" >{{todo.owner}}</mat-panel-title>
+                            <mat-panel-title  matTooltip="status: {{todo.status}}" >{{todo._id['$oid']}}</mat-panel-title>
 
                         </mat-expansion-panel-header>
                         <!-- <mat-panel-description>Owner: {{todo.owner}} </mat-panel-description>-->
                         <!--<mat-panel-description>Status: {{todo.status}} </mat-panel-description>-->
+                        <mat-panel-description>ID: {{todo._id['$oid']}}</mat-panel-description>
                         <mat-panel-description>Body: {{todo.body}} </mat-panel-description>
                         <mat-panel-description >Category: {{todo.category}}</mat-panel-description>
 
