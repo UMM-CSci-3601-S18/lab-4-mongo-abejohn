@@ -37,7 +37,7 @@ export class TodoListComponent implements OnInit {
     constructor(public todoListService: TodoListService, public dialog: MatDialog) {
 
     }
-
+/*
     //select (complete or incomplete
     categories = [
         {value: 'videogames-0', viewValue: 'videogames'},
@@ -45,6 +45,8 @@ export class TodoListComponent implements OnInit {
         {value: 'homework-2', viewValue: 'homework'},
         {value: 'software-design-3', viewValue: 'sofware-design'}
     ]
+    */
+
 
     getId(): String {
         return this.highlightedID['$oid'];
@@ -107,6 +109,12 @@ export class TodoListComponent implements OnInit {
                 return statusBoolean == null || todo.status === statusBoolean;
             });
         }
+
+
+
+
+
+
 
         //filter by body
         if (searchBody != null) {

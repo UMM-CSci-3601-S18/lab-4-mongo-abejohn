@@ -5,3 +5,4 @@ export interface Todo {
     body: string,
     category: string
 }
+

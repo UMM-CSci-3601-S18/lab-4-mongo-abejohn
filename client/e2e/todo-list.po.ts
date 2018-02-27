@@ -9,7 +9,6 @@ export class TodoPage {
     getTodoTitle() {
         const title = element(by.id('todo-list-title')).getText();
         this.highlightElement(by.id('todo-list-title'));
-
         return title;
     }
 
