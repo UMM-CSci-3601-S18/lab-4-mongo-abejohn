@@ -32,26 +32,21 @@
                 </mat-radio-group>
 -->
 
-
-           <!--     <mat-form-field>
-                    <mat-select [(value)]="selected">
-                        <mat-option>None</mat-option>
-                        <mat-option value="homework">homeworks</mat-option>
-                        <mat-option value="groceries">groceires</mat-option>
-                        <mat-option value="software-design">software-design</mat-option>
-                        <mat-option value="videogames">videogames</mat-option>
-                    </mat-select>
-                </mat-form-field>
--->
+                    <br>
+     <!--          <mat-select matInput  [(ngModel)]="todoCategory" placeholder="category">
+                  <mat-option>all</mat-option>
+                   <mat-option value="software design">Software Design</mat-option>
+                   <mat-option  value="homework">Homework</mat-option>
+                   <mat-option value="video games">Video Games</mat-option>
+                   <mat-option value="groceries">Groceries </mat-option>
+              </mat-select>
+          -->
                 <form>
                     <label>Status: </label>
                     <select name="dropdown" id="todoStatus" (input)="todoStatus = $event.target.value">>
                         <option value="" id="empty" ></option>
                         <option value="complete" id="false"  >Complete</option>
                         <option value="incomplete" id="true" >Incomplete</option>
-
-
-
                     </select>
                 </form>
 
@@ -62,6 +57,7 @@
                 <mat-form-field>
                     <input matInput id="todoBody" #input type="text" placeholder="Filter by body" (input)="todoBody = $event.target.value">
                 </mat-form-field>
+                <br>
                 <mat-form-field>
                     <input matInput id="todoCategory" #input type="text" placeholder="Filter by category" (input)="todoCategory = $event.target.value">
                 </mat-form-field>
