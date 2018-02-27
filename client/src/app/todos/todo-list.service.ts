@@ -16,8 +16,8 @@ export class TodoListService {
     constructor(private http: HttpClient) {
     }
 
-    getTodos(todoCategory?: string): Observable<Todo[]> {
-        this.filterByCategory(todoCategory);
+    getTodos(todoOwner?: string): Observable<Todo[]> {
+        this.filterByOwner(todoOwner);
         return this.http.get<Todo[]>(this.todoUrl);
     }
 
@@ -25,32 +25,28 @@ export class TodoListService {
         return this.http.get<Todo>(this.todoUrl + "/" + id);
     }
 
-    filterByCategory(todoCategory?: string): void {
-        if (!(todoCategory == null || todoCategory == "")){
-            if (this.todoUrl.indexOf('category=') !== -1){
-                // there was a previous search by category that we need to clear
-                let start = this.todoUrl.indexOf('category=');
-                let end = this.todoUrl.indexOf('&', start);
-                this.todoUrl = this.todoUrl.substring(0, start-1) + this.todoUrl.substring(end+1);
+    filterByOwner(todoOwner?: string): void {
+        if (!(todoOwner == null || todoOwner === '')) {
+            if (this.parameterPresent('owner=') ) {
+                // there was a previous search by owner that we need to clear
+                this.removeParameter('owner=');
             }
-            if (this.todoUrl.indexOf('&') !== -1) {
+            if (this.todoUrl.indexOf('?') !== -1) {
                 // there was already some information passed in this url
-                this.todoUrl += 'category=' + todoCategory + '&';
-            }
-            else {
+                this.todoUrl += 'owner=' + todoOwner + '&';
+            } else {
                 // this was the first bit of information to pass in the url
-                this.todoUrl += "?category=" + todoCategory + "&";
+                this.todoUrl += '?owner=' + todoOwner + '&';
             }
-        }
-        else {
+        } else {
             // there was nothing in the box to put onto the URL... reset
-            if (this.todoUrl.indexOf('category=') !== -1){
-                let start = this.todoUrl.indexOf('category=');
+            if (this.parameterPresent('owner=')) {
+                let start = this.todoUrl.indexOf('owner=');
                 const end = this.todoUrl.indexOf('&', start);
-                if (this.todoUrl.substring(start - 1 , start) === '?'){
-                    start = start-1
+                if (this.todoUrl.substring(start - 1, start) === '?') {
+                    start = start - 1;
                 }
-                this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end+1);
+                this.todoUrl = this.todoUrl.substring(0, start) + this.todoUrl.substring(end + 1);
             }
         }
     }

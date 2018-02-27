@@ -58,10 +58,11 @@ export class TodoListComponent implements OnInit {
     }
 
 
-    public filterTodos(searchOwner: string, searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
+    public filterTodos(searchStatus: string, searchBody: string, searchCategory: string): Todo[] {
 
         this.filteredTodos = this.todos;
 
+        /**
         //Filter by owner
         if (searchOwner != null) {
             searchOwner = searchOwner.toLocaleLowerCase();
@@ -70,6 +71,7 @@ export class TodoListComponent implements OnInit {
                 return !searchOwner || todo.owner.toLowerCase().indexOf(searchOwner) !== -1;
             });
         }
+         **/
 
         //Filter by status
 
@@ -124,7 +126,7 @@ export class TodoListComponent implements OnInit {
         todos.subscribe(
             todos => {
                 this.todos = todos;
-                this.filterTodos(this.todoOwner, this.todoStatus, this.todoBody, this.todoCategory);
+                this.filterTodos(this.todoStatus, this.todoBody, this.todoCategory);
             },
             err => {
                 console.log(err);
@@ -132,9 +134,9 @@ export class TodoListComponent implements OnInit {
         return todos;
     }
 
-
+    //filter todos by owner, on database side
     loadService(): void {
-        this.todoListService.getTodos(this.todoCategory).subscribe(
+        this.todoListService.getTodos(this.todoOwner).subscribe(
             todos => {
                 this.todos = todos;
                 this.filteredTodos = this.todos;

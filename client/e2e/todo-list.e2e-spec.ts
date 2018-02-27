@@ -30,7 +30,7 @@ describe('Todo list', () => {
         expect(page.getTodoTitle()).toEqual('Todos');
     });
 
-    it('should type something in filter name box and check that it returned correct element', () => {
+    it('should type something in filter owner box and check that it returned correct element', () => {
         page.navigateTo();
         page.typeAnOwner('Bla');
         expect(page.getUniqueTodo('58af3a600343927e48e8720f')).toEqual('Blanche');
@@ -71,7 +71,7 @@ describe('Todo list', () => {
 
     it('Should allow us to filter todos based on category', () => {
         page.navigateTo();
-        page.getCategory('home work');
+        page.getCategory('homework');
         page.getTodos().then(function(todos) {
             expect(todos.length).toBe(4);
         });

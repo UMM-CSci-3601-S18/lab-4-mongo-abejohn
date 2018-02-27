@@ -28,7 +28,7 @@ export class TodoPage {
     }
 
     typeAnOwner(owner: string) {
-        const input = element(by.id('todoName'));
+        const input = element(by.id('todoOwner'));
         input.click();
         input.sendKeys(owner);
     }
