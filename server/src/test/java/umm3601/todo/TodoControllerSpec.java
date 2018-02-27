@@ -17,9 +17,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 public class TodoControllerSpec {
 
@@ -133,9 +131,9 @@ public class TodoControllerSpec {
 
     @Test
     public void addTodoTest(){
-        boolean bool = todoController.addNewTodo("Brian",false,"umm", "homework");
+        String test = todoController.addNewTodo("Brian",false,"umm", "homework");
 
-        assertTrue("Add new todo should return true when todo is added,",bool);
+        assertNotNull("Add new user should return true when todo is added,", test);
         Map<String, String[]> argMap = new HashMap<>();
         argMap.put("owner", new String[] { "Brian" });
         String jsonResult = todoController.getTodos(argMap);
