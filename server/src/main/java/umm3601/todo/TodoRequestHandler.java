@@ -111,5 +111,9 @@ public class TodoRequestHandler {
         }
     }
 
+    public String getTodoSummary(Request req, Response res) {
+        return todoController.getTodoSummary();
+    }
+
 
 }

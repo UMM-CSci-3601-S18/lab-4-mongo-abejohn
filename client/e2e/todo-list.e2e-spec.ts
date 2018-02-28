@@ -34,83 +34,27 @@ describe('Todo list', () => {
         page.navigateTo();
         page.typeACategory('homework');
         expect(page.getUniqueTodo('58af3a600343927e48e87211')).toEqual('Fry');
-        page.backspace();
+    });
+
+    it('should type something in filter body box and check that it returned correct element', () => {
+        page.navigateTo();
+        page.typeABody('Ipsum esse est ullamco magna tempor anim laborum non officia deserunt veniam commodo. Aute minim incididunt ex commodo.');
+        expect(page.getUniqueTodo('58af3a600343927e48e87210')).toEqual('Fry');
+    });
+
+    it('should filter by body and category', () => {
+        page.navigateTo();
         page.typeACategory('software');
-        expect(page.getUniqueTodo('58af3a600343927e48e87212')).toEqual('Blanche');
+        page.typeABody('ullamco consequat consectetur velit dolor qui pariatur');
+        expect(page.getUniqueTodo('58af3a600343927e48e8722a')).toEqual('Barry');
     });
 
-
-   /*
-
-    it('should click on the age 27 times and return 3 elements then ', () => {
+    it('Should allow us to search by owner', () => {
         page.navigateTo();
-        page.getTodoByAge();
-        for (let i = 0; i < 27; i++) {
-            page.selectUpKey();
-        }
-
-        expect(page.getUniqueTodo('stokesclayton@momentia.com')).toEqual('Stokes Clayton');
-
-        expect(page.getUniqueTodo('merrillparker@escenta.com')).toEqual('Merrill Parker');
+        page.getOwner('barry');
+        expect(page.getUniqueTodo('58af3a600343927e48e8721c')).toEqual('Barry');
     });
 
-    */
-
-
-   /**
-    it('Should open the expansion panel and get the category', () => {
-        page.navigateTo();
-        page.typeACategory('homewo');
-        browser.actions().sendKeys(Key.ENTER).perform();
-
-        expect(page.getUniqueTodo('58af3a600343927e48e87211' +
-            '')).toEqual('Homework');
-
-        // This is just to show that the panels can be opened
-        browser.actions().sendKeys(Key.TAB).perform();
-        browser.actions().sendKeys(Key.ENTER).perform();
-    });
-
-    it('Should allow us to filter todos based on category', () => {
-        page.navigateTo();
-        page.getCategory('homework');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(4);
-        });
-        expect(page.getUniqueTodo('58af3a600343927e48e87212')).toEqual('Blanche');
-        expect(page.getUniqueTodo('58af3a600343927e48e87217')).toEqual('Fry');
-        expect(page.getUniqueTodo('58af3a600343927e48e87216')).toEqual('Blanche');
-        expect(page.getUniqueTodo('58af3a600343927e48e87218')).toEqual('Workman');
-    });
-
-    it('Should allow us to clear a search for category and then still successfully search again', () => {
-        page.navigateTo();
-        page.getCategory('homework');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(2);
-        });
-        page.clickClearCompanySearch();
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(301);
-        });
-        page.getCategory('soft');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(74);
-        });
-    });
-
-    it('Should allow us to search for category, update that search string, and then still successfully search', () => {
-        page.navigateTo();
-        page.getCategory('video');
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(71);
-        });
-        element(by.id('todoCategory')).sendKeys('groceries');
-        element(by.id('submit')).click();
-        page.getTodos().then(function(todos) {
-            expect(todos.length).toBe(76);
-        });
-    });
 
 // For examples testing modal dialog related things, see:
 // https://code.tutsplus.com/tutorials/getting-started-with-end-to-end-testing-in-angular-using-protractor--cms-29318
@@ -127,7 +71,9 @@ describe('Todo list', () => {
         element(by.id('addNewTodo')).click();
         expect(element(by.css('add-todo')).isPresent()).toBeTruthy('There should be a modal window now');
     });
+});
 
+    /*
     it('Should actually add the todo with the information we put in the fields', () => {
         page.navigateTo();
         page.clickAddTodoButton();
@@ -141,31 +87,34 @@ describe('Todo list', () => {
         element(by.id('categoryField')).sendKeys('Home work, video game');
         element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
         element(by.id('confirmAddTodoButton')).click();
+    });
+});
+     */
         // This annoying delay is necessary, otherwise it's possible that we execute the `expect`
         // line before the add todo has been fully processed and the new todo is available
         // in the list.
-        setTimeout(() => {
-            expect(page.getUniqueTodo('58af3a600343927e48e8721bb')).toMatch('Fry.*'); // toEqual('Tracy Kim');
-        }, 10000);
-    });
+        /*        setTimeout(() => {
+                    expect(page.getUniqueTodo('58af3a600343927e48e8721bb')).toMatch('Fry.*'); // toEqual('Tracy Kim');
+                }, 10000);
 
-    it('Should allow us to put information into the fields of the add todo dialog', () => {
-        page.navigateTo();
-        page.clickAddTodoButton();
-        expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
-        element(by.id('ownerField')).sendKeys('Dana Jones');
-        expect(element(by.id('statusField')).isPresent()).toBeTruthy('There should be a status field');
-        // Need to use backspace because the default value is -1. If that changes, this will change too.
-        element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
-            element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
-                element(by.id('statusField')).sendKeys('true');
+
+            it('Should allow us to put information into the fields of the add todo dialog', () => {
+                page.navigateTo();
+                page.clickAddTodoButton();
+                expect(element(by.id('ownerField')).isPresent()).toBeTruthy('There should be an owner field');
+                element(by.id('ownerField')).sendKeys('Dana Jones');
+                expect(element(by.id('statusField')).isPresent()).toBeTruthy('There should be a status field');
+                // Need to use backspace because the default value is -1. If that changes, this will change too.
+                element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
+                    element(by.id('statusField')).sendKeys(protractor.Key.BACK_SPACE).then(function() {
+                        element(by.id('statusField')).sendKeys('true');
+                    });
+
+                expect(element(by.id('categoryField')).isPresent()).toBeTruthy('There should be a category field');
+                element(by.id('categoryField')).sendKeys('Awesome Startup, LLC');
+                expect(element(by.id('_idField')).isPresent()).toBeTruthy('There should be an _id field');
+                element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
+                element(by.id('exitWithoutAddingButton')).click();
             });
-        });
-        expect(element(by.id('categoryField')).isPresent()).toBeTruthy('There should be a category field');
-        element(by.id('categoryField')).sendKeys('Awesome Startup, LLC');
-        expect(element(by.id('_idField')).isPresent()).toBeTruthy('There should be an _id field');
-        element(by.id('_idField')).sendKeys('58af3a600343927e48e8721bb');
-        element(by.id('exitWithoutAddingButton')).click();
-    });
-    **/
-});
+        */
+

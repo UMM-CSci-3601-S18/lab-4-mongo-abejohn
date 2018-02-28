@@ -28,4 +28,5 @@ newUse- used to add new users to the data base.
 5.clearAndPopulateDB is used in testing. Before every test, it clears the database and adds the same 
     four users to it.
 6. getUsersWhoAre37 checks if getUsers returns the correct amount of users based on age(Jamie and Pat) 
-7.
+7. userRequestHandler is called when api/users/new is received from the server. userRequestHandler passes the new user 
+    information to userController, which adds the info to a JSON document.

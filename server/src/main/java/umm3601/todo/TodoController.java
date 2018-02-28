@@ -11,6 +11,20 @@ import org.bson.types.ObjectId;
 import java.util.Iterator;
 import java.util.Map;
 
+import java.util.Arrays;
+
+//aggregation
+import com.mongodb.Block;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.Aggregates;
+import com.mongodb.client.model.Accumulators;
+import com.mongodb.client.model.Projections;
+import com.mongodb.client.model.Filters;
+import com.mongodb.client.AggregateIterable;
+
+
 import static com.mongodb.client.model.Filters.eq;
 
 public class TodoController {
@@ -116,4 +130,42 @@ public class TodoController {
         }
 
     }
+
+    public String getTodoSummary() {
+        Document summaryDoc = new Document();
+
+        String[] categories = {"videogames", "software-design","groceries","homework"};
+
+        double[] categoryCount = new double[4];
+
+        for (int i = 0; i < 4; i++) {
+            Document doc = new Document("category",categories[i]);
+
+            categoryCount[i] = 100 /(double)todoCollection.count(doc);
+
+            System.out.println(categories[i] + " " + categoryCount[i]);
+        }
+
+        for (int i = 0; i < 4; i++) {
+            summaryDoc.append(categories[i] + " Todos complete", todoCollection.aggregate(
+                Arrays.asList(
+                    Aggregates.match(Filters.eq("category", categories[i])),
+                    Aggregates.match(Filters.eq("status", true)),
+                    Aggregates.group("$category", Accumulators.sum("finished todos", 1) , Accumulators.sum("percent done", categoryCount[i]))
+                )
+                )
+            );
+
+        }
+        return summaryDoc.toJson();
+    }
+
+    public static void main(String[] args) {
+        MongoClient mongoClient = new MongoClient();
+        MongoDatabase userDatabase = mongoClient.getDatabase("dev");
+        TodoController todoController = new TodoController(userDatabase);
+
+        System.out.println(todoController.getTodoSummary());
+    }
+
 }

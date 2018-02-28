@@ -28,7 +28,7 @@ export class TodoListComponent implements OnInit {
     public todoCategory : string;
 
     private highlightedID: {'$oid': string} = { '$oid': '' };
-    
+
     //Inject the TodoListService into this component.
     //That's what happens in the following constructor.
     //panelOpenState: boolean = false;
@@ -37,6 +37,16 @@ export class TodoListComponent implements OnInit {
     constructor(public todoListService: TodoListService, public dialog: MatDialog) {
 
     }
+/*
+    //select (complete or incomplete
+    categories = [
+        {value: 'videogames-0', viewValue: 'videogames'},
+        {value: 'groceries-1', viewValue: 'groceries'},
+        {value: 'homework-2', viewValue: 'homework'},
+        {value: 'software-design-3', viewValue: 'sofware-design'}
+    ]
+    */
+
 
     getId(): String {
         return this.highlightedID['$oid'];
@@ -99,6 +109,12 @@ export class TodoListComponent implements OnInit {
                 return statusBoolean == null || todo.status === statusBoolean;
             });
         }
+
+
+
+
+
+
 
         //filter by body
         if (searchBody != null) {
