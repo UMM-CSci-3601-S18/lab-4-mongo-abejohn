@@ -134,16 +134,19 @@ public class TodoController {
     public String getTodoSummary() {
         Document summaryDoc = new Document();
 
-        String[] categories = {"videogames", "software-design","groceries","homework"};
+        String[] categories = {"video games", "software design","groceries","homework"};
+
+        String[] owners = {"Blanche", "Fry", "Workman", "Dawn", "Roberta", "Barry"};
 
         double[] categoryCount = new double[4];
 
+        double[] ownerCount = new double[6];
+
+        //categories
         for (int i = 0; i < 4; i++) {
             Document doc = new Document("category",categories[i]);
 
             categoryCount[i] = 100 /(double)todoCollection.count(doc);
-
-            System.out.println(categories[i] + " " + categoryCount[i]);
         }
 
         for (int i = 0; i < 4; i++) {
@@ -155,8 +158,26 @@ public class TodoController {
                 )
                 )
             );
-
         }
+
+        //owners
+        for (int i = 0; i < 6; i++) {
+            Document doc = new Document("owner",owners[i]);
+
+            ownerCount[i] = 100 /(double)todoCollection.count(doc);
+        }
+
+        for (int i = 0; i < 6; i++) {
+            summaryDoc.append(owners[i] + " Todos complete", todoCollection.aggregate(
+                Arrays.asList(
+                    Aggregates.match(Filters.eq("owner", owners[i])),
+                    Aggregates.match(Filters.eq("status", true)),
+                    Aggregates.group("$owner", Accumulators.sum("finished todos", 1) , Accumulators.sum("percent done", ownerCount[i]))
+                )
+                )
+            );
+        }
+
         return summaryDoc.toJson();
     }
 

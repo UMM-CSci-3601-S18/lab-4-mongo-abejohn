@@ -18,29 +18,7 @@
                     </button>
                 </mat-form-field>
                 <button mat-raised-button id="submit" color="primary" #input type="button" (click)="loadService()">Submit</button>
-        <!--        <mat-form-field>
-                    <input matInput id="todoStatus" #input type="text" placeholder="Filter by status" (input)="todoStatus = $event.target.value">
-                </mat-form-field>
--->
 
-
-
-          <!--      <mat-radio-group>
-
-                    <mat-radio-button value="complete" id="false"  >Complete</mat-radio-button>
-                    <mat-radio-button value="incomplete" id="true" >Incomplete</mat-radio-button>
-                </mat-radio-group>
--->
-
-                    <br>
-     <!--          <mat-select matInput  [(ngModel)]="todoCategory" placeholder="category">
-                  <mat-option>all</mat-option>
-                   <mat-option value="software design">Software Design</mat-option>
-                   <mat-option  value="homework">Homework</mat-option>
-                   <mat-option value="video games">Video Games</mat-option>
-                   <mat-option value="groceries">Groceries </mat-option>
-              </mat-select>
-          -->
                 <form>
                     <label>Status: </label>
                     <select name="dropdown" id="todoStatus" (input)="todoStatus = $event.target.value">>
@@ -49,10 +27,6 @@
                         <option value="incomplete" id="true" >Incomplete</option>
                     </select>
                 </form>
-
-
-
-
 
                 <mat-form-field>
                     <input matInput id="todoBody" #input type="text" placeholder="Filter by body" (input)="todoBody = $event.target.value">
@@ -63,18 +37,19 @@
                 </mat-form-field>
 
                 <mat-accordion *ngIf="todos; else todosError" >
+                    <mat-progress-bar>
                     <mat-expansion-panel #elem [id]="todo._id['$oid']" class = "todo" *ngFor="let todo of this.filterTodos(todoStatus,todoBody,todoCategory)">
                         <mat-expansion-panel-header>
                             <mat-panel-title  matTooltip= "ID:{{todo._id['$oid']}}" >{{todo.owner}}</mat-panel-title>
 
                         </mat-expansion-panel-header>
-                        <!-- <mat-panel-description>Owner: {{todo.owner}} </mat-panel-description>-->
                         <mat-panel-description>Status: {{todo.status}} </mat-panel-description>
                         <mat-panel-description>ID: {{todo._id['$oid']}}</mat-panel-description>
                         <mat-panel-description>Body: {{todo.body}} </mat-panel-description>
                         <mat-panel-description >Category: {{todo.category}}</mat-panel-description>
 
                     </mat-expansion-panel>
+                    </mat-progress-bar>
                 </mat-accordion>
                 <!-- Maybe this should be a pop-up instead of just a text message? Not sure. -->
                 <ng-template #todosError>
